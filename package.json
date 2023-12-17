@@ -1,7 +1,7 @@
 {
-  "name": "hedro.ai-server",
+  "name": "openai-playground",
   "version": "0.0.1",
-  "description": "A helpful GPT-3.5-turbo-assistant whose main goal is to guide users to explore the ecosystem of the Hedera network",
+  "description": "A RESTful playground for exploring OpenAI APIs",
   "main": "none",
   "scripts": {
     "dev": "nodemon server.ts"
