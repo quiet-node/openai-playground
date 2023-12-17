@@ -6,6 +6,8 @@ import upload from '../../middleware/file-upload';
 
 const openAIRouter = express.Router();
 
+const MODEL_ID = process.env.FINE_TUNED_MODEL_ID || 'gpt-3.5-turbo-1106';
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -13,7 +15,7 @@ const openai = new OpenAI({
 openAIRouter.post('/chat-completions', async (req, res) => {
   const content = req.body.content;
   const stream = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo-1106',
+    model: MODEL_ID,
     messages: [
       {
         role: 'system',
@@ -22,6 +24,7 @@ openAIRouter.post('/chat-completions', async (req, res) => {
       },
       { role: 'user', content },
     ],
+    temperature: 1.2,
     stream: true,
   });
 
@@ -29,8 +32,9 @@ openAIRouter.post('/chat-completions', async (req, res) => {
     process.stdout.write(chunk.choices[0]?.delta?.content || '');
   }
   console.log();
+  console.log();
 
-  res.send(stream);
+  res.send('Done.');
 });
 
 openAIRouter.post('/creater-new-assistant', async (req, res) => {
